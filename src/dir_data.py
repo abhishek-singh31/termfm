@@ -1,0 +1,29 @@
+import os
+
+from utils import print_dir print_file
+
+
+# walk the current dir and get its contents
+data = list(os.walk(os.getcwd()))
+
+
+def recurse(index):
+    output = []
+   
+    output.append(data[index][0])
+    
+    if len(data[index][1]) == 0:
+        output.append([])
+
+    else:
+        for i in range(len(data[index][1])):
+            output.append(recurse(index+i+1))
+        
+    output.append(data[index][2])
+
+    return output
+
+
+cwd_data = recurse(0)
+
+# print(cwd_data)

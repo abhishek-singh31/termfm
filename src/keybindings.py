@@ -10,16 +10,19 @@ cursor = {'x': 0, 'y': 0}
 def exit_(event):
     event.app.exit()
 
+# @kb.add('r')
+# def rename(event):
+    # print(event.app.layout.current_control.text)
 
-def movecursor_down():
-    cursor['x'] += 1
-    return Point(cursor['x'], cursor['y'])
+# def movecursor_down():
+    # cursor['x'] += 1
+    # return Point(cursor['x'], cursor['y'])
 
-# down arrow
-@kb.add('down')
-def menu_down(event):
-    # print(event.app.layout.current_control)
-    event.app.layout.current_control.get_cursor_position = movecursor_down
+# # down arrow
+# @kb.add('down')
+# def menu_down(event):
+    # # print(event.app.layout.current_control)
+    # event.app.layout.current_control.get_cursor_position = movecursor_down
     
 
 
