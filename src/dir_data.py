@@ -34,10 +34,12 @@ def recurse(index):
     remaining_files = data[index][2]
     for i in range(len(remaining_files)):
         children.append(MenuItem(text=print_file(remaining_files[i]))) 
-
+    
     menu_item.children = children
 
     return [output, len(data[index][1])]
 
 
-cwd_data = recurse(0)[0]
+menu_data = recurse(0)[0]
+
+
