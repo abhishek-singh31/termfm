@@ -22,7 +22,7 @@ def get_menu_selection_path(data, selection):
         final_index = selection[-1]
 
 
-    path=find(str(data[folder_index][contents_index][final_index]),"/home/abhishek/Desktop/termfm")
+    path=find(str(data[folder_index][contents_index][final_index]),data[0][0])
     return path
 
 def find(name, path):
