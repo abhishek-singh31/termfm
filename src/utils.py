@@ -13,6 +13,10 @@ def get_input(buffer):
     return 
 
 
+def get_folder_from_path(src):
+    return src.split('/')[-1]
+
+
 def get_menu_selection(data, selection):
     folder_index = 0  # which tuple we are currently at
     contents_index = 0  # to search in folders list or files list of that tuple
@@ -39,6 +43,10 @@ def get_menu_selection(data, selection):
     
     return_dict = {'path': selection_path, 'name': selection_name, 'type': ""}
 
+    path=find(str(data[folder_index][contents_index][final_index]),data[0][0])
+    return path
+
+
     if os.path.isfile(selection_path):
         return_dict['type'] = "file"
     else:
@@ -49,6 +57,7 @@ def get_menu_selection(data, selection):
     # print(folder_index, contents_index, final_index)
     # print(data[folder_index][contents_index][final_index])
     # print(selection)
+
 
 
 def find_skips(data, index):
@@ -68,4 +77,5 @@ def find_skips(data, index):
     output[1] = len(data[index][1])
 
     return output
+
 
