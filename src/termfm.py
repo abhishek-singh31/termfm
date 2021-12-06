@@ -21,11 +21,13 @@ menu_kb = KeyBindings()
 heading = text2art("TERMFM", font="cyberlarge")
 
 menu_container = Window(style="fg:ansiwhite bg:ansiblack")
-menu = MenuContainer(body=menu_container, menu_items=menu_data)
-menu_env = VSplit([menu], key_bindings=menu_kb)
+menu = MenuContainer(body=menu_container, menu_items=menu_data, key_bindings=menu_kb)
+menu_env = VSplit([menu])
 
 prompt_field = Window(dont_extend_height=True, content=FormattedTextControl(focusable=False), style="bg:ansigray fg:ansiblack")
-user_input_field = TextArea(multiline=False, focusable=True, dont_extend_height=True, style="bg:ansigray fg:ansiblack")
+user_input_field = TextArea(multiline=False, focusable=True, dont_extend_height=True, style="bg:ansigray fg:ansiblack",
+accept_handler=get_input)
+
 root_container =  HSplit([
     Window(dont_extend_height=True, align=WindowAlign.CENTER, style="fg:ansiwhite bg:ansiblack", content=FormattedTextControl(text=heading, focusable=False)),
     menu_env,
