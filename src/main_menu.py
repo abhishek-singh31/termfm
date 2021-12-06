@@ -66,6 +66,4 @@ def delete(event):
     if(os.path.isfile(src)):
         os.remove(src)
     else:
-        shutil.rmtree(src)
-    reset()
-    
+        shutil.rmtree(src)    
