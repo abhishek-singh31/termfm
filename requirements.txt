@@ -1,1 +1,2 @@
 prompt_toolkit
+art==5.3
