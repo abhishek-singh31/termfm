@@ -1,4 +1,5 @@
-
+import os
+path=''
 def get_menu_selection_path(data, selection):
     folder_index = 0  # which tuple we are currently at
     contents_index = 0  # to search in folders list or files list of that tuple
@@ -21,12 +22,15 @@ def get_menu_selection_path(data, selection):
         final_index = selection[-1]
 
 
+    path=find(str(data[folder_index][contents_index][final_index]),data[0][0])
+    return path
 
-
-    # print(folder_index, contents_index, final_index)
-    print(data[folder_index][contents_index][final_index])
-        # print(selection)
-
+def find(name, path):
+    for root, dirs, files in os.walk(path):
+        if name in files:
+            return(os.path.join(root, name))
+        if name in dirs:
+            return (os.path.join(root, name))
 
 def find_skips(data, index):
     if len(data[index][1]) == 0:

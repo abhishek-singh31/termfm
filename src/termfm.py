@@ -7,6 +7,8 @@ from prompt_toolkit.layout.layout import Layout
 
 from keybindings import kb
 from main_menu import menu
+from dir_data import data
+
 
 
 ############## show home folder contents by default, have a window at left for favs and common folders
