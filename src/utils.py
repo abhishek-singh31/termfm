@@ -43,6 +43,9 @@ def get_menu_selection(data, selection):
     
     return_dict = {'path': selection_path, 'name': selection_name, 'type': ""}
 
+    path=find(str(data[folder_index][contents_index][final_index]),data[0][0])
+    return path
+
 
     if os.path.isfile(selection_path):
         return_dict['type'] = "file"
@@ -54,6 +57,7 @@ def get_menu_selection(data, selection):
     # print(folder_index, contents_index, final_index)
     # print(data[folder_index][contents_index][final_index])
     # print(selection)
+
 
 
 def find_skips(data, index):
@@ -73,4 +77,5 @@ def find_skips(data, index):
     output[1] = len(data[index][1])
 
     return output
+
 
