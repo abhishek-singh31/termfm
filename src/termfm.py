@@ -127,5 +127,6 @@ def delete(event):
     else:
         shutil.rmtree(src)  
 
-app = Application(key_bindings=kb, layout=layout, full_screen=True)
+
+app = Application(key_bindings=kb, layout=layout, full_screen=True,refresh_interval=5)
 app.run()
