@@ -12,7 +12,10 @@ from prompt_toolkit.key_binding import KeyBindings
 from prompt_toolkit.application import get_app
 
 from utils import get_menu_selection, get_folder_from_path
-from dir_data import data, menu_data, recurse
+from menu_data import data, menu_data, recurse
+
+
+# TODO: CREATING NEW FOLDER AND FILE, PACKAGE FOR LINUX
 
 
 kb = KeyBindings()
@@ -69,7 +72,6 @@ def user_input_field_handler(buffer):
         get_app().layout.focus(user_input_field)
         return True
 
-
 user_input_field = TextArea(
     multiline=False,
     focusable=True,
@@ -77,6 +79,7 @@ user_input_field = TextArea(
     style="bg:ansigray fg:ansiblack",
     accept_handler=user_input_field_handler
 )
+
 
 root_container = HSplit(
     [
@@ -106,11 +109,11 @@ def refresh_menu():
     menu_env.reset()
 
 
-# -------------------------------  KEYBINDINGS  --------------------------
+# ----------------------------------  KEYBINDINGS  -----------------------------
 
 
-# Exit
 @kb.add("c-q")
+# Exit
 def exit_(event):
     event.app.exit()
 
@@ -130,6 +133,7 @@ def start_file(event):
 
 
 @menu_kb.add("r")
+# rename a file or folder
 def rename(event):
     selection = get_menu_selection(data, menu.selected_menu)
     user_input_field_operation_data.append("rename")
@@ -139,7 +143,8 @@ def rename(event):
     get_app().layout.focus(user_input_field)
 
 
-@kb.add("d")
+@menu_kb.add("d")
+# delete a file or folder
 def delete(event):
     selection = get_menu_selection(data, menu.selected_menu)
     user_input_field_operation_data.append("delete")
@@ -150,6 +155,7 @@ def delete(event):
 
 
 @menu_kb.add("c")
+# copy a file or folder
 def copy(event):
     clipboard.clear()
     clipboard.append("c")
@@ -157,6 +163,7 @@ def copy(event):
 
 
 @menu_kb.add("x")
+# cut (to move) a file or folder
 def cut(event):
     clipboard.clear()
     clipboard.append("x")
@@ -164,6 +171,7 @@ def cut(event):
 
 
 @menu_kb.add("v")
+# paste
 def paste(event):
     if len(clipboard) == 0:
         return

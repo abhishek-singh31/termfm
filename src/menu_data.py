@@ -1,6 +1,3 @@
-# RENAME FILE TO MENU_DATA
-
-
 from prompt_toolkit.widgets import MenuItem
 import os
 

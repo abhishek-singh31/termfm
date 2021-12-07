@@ -17,7 +17,6 @@ def get_menu_selection(data, selection):
     folder_index = 0  # which tuple we are currently at
     contents_index = 0  # to search in folders list or files list of that tuple
     final_index = 0  # position of selected file/folder in its list
-
     # Final position of element will always be of the form data[folder_index][contents_index][final_index]
 
     for i in range(len(selection) - 1):
