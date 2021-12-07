@@ -234,6 +234,6 @@ def paste(event):
     refresh_menu()
     
     
-app = Application(key_bindings=kb, layout=layout, full_screen=True,refresh_interval=5)
+app = Application(key_bindings=kb, layout=layout, full_screen=True)
 app.run()
 
