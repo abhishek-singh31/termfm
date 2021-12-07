@@ -1,6 +1,3 @@
-# RENAME FILE TO MENU_DATA
-
-
 from prompt_toolkit.widgets import MenuItem
 import os
 
@@ -11,7 +8,6 @@ from utils import print_dir, print_file
 data = list(os.walk(os.getcwd()))
 
 
-
 def recurse(_data,index):
     output = []
     children = []
@@ -19,9 +15,9 @@ def recurse(_data,index):
    
     dir_name = _data[index][0].split('/')[-1]
     menu_item = MenuItem(text=print_dir(dir_name))
-    
+
     output.append(menu_item)
-    
+
     if len(_data[index][1]) == 0:
         children = []
 
@@ -41,5 +37,3 @@ def recurse(_data,index):
 
 
 menu_data = recurse(data,0)[0]
-
-
