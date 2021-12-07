@@ -11,15 +11,12 @@ from prompt_toolkit.widgets import MenuContainer
 from prompt_toolkit.key_binding import KeyBindings
 from prompt_toolkit.application import get_app
 
-from utils import get_menu_selection, get_folder_from_path
+from utils import get_menu_selection, get_folder_from_path, get_dirpath_from_filepath
 from menu_data import data, menu_data, recurse
 
 
-# TODO: CREATING NEW FOLDER AND FILE, PACKAGE FOR LINUX
-
-
-kb = KeyBindings()
-menu_kb = KeyBindings()
+kb = KeyBindings()  # Global keybindings
+menu_kb = KeyBindings()  # Keybindings for menu only
 
 heading = text2art("TERMFM", font="cyberlarge")
 
@@ -44,12 +41,10 @@ def user_input_field_handler(buffer):
     retry = False
 
     if operation == "rename":
-        _new_path = operate_on['path'].split('/')
-        _new_path.pop(-1); _new_path.append(input_text)
-        new_path = "/".join(_new_path)
+        new_path = get_dirpath_from_filepath(operate_on['path'])
         os.rename(operate_on['path'], new_path)
 
-    if operation == "delete":
+    elif operation == "delete":
         if input_text in ['y', 'Y']:
             if operate_on['type'] == "file":
                 os.remove(operate_on['path'])
@@ -59,6 +54,15 @@ def user_input_field_handler(buffer):
             pass
         else:
             retry = True
+
+    elif operation == "new-file":
+        filepath = os.path.join(user_input_field_operation_data[1], input_text)
+        with open(filepath, 'w') as fp:
+            pass
+
+    elif operation == "new-dir":
+        dirpath = os.path.join(user_input_field_operation_data[1], input_text)
+        os.mkdir(dirpath)
 
     if retry == False:
         refresh_menu()
@@ -154,6 +158,31 @@ def delete(event):
     get_app().layout.focus(user_input_field)
 
 
+@menu_kb.add("n", "<any>")
+# create a new file or folder
+def create_new(event):
+    selection = get_menu_selection(data, menu.selected_menu)
+    
+    if event.key_sequence[1].key == 'f':
+        user_input_field_operation_data.append("new-file")
+        n_type = "file"
+    elif event.key_sequence[1].key == 'd':
+        user_input_field_operation_data.append("new-dir")
+        n_type = "directory"
+    else:
+        return
+
+    if selection['type'] == "folder":
+        user_input_field_operation_data.append(selection['path'])
+    elif selection['type'] == "file":
+        dir_path = get_dirpath_from_filepath(selection['path'])
+        user_input_field_operation_data.append(dir_path)
+
+    prompt_field.content.text = f"Enter name of the new {n_type}:"
+    user_input_field_operation_data.append(menu.selected_menu)
+    get_app().layout.focus(user_input_field)
+
+
 @menu_kb.add("c")
 # copy a file or folder
 def copy(event):
@@ -182,9 +211,7 @@ def paste(event):
     dest = ""
 
     if current_position["type"] == "file":
-        _dest = current_position["path"].split("/")
-        _dest.pop(-1)
-        dest = "/".join(_dest)
+        dest = get_dirpath_from_filepath(current_position["path"])
     elif current_position["type"] == "folder":
         dest = get_menu_selection(data, menu.selected_menu)["path"]
 
@@ -209,3 +236,4 @@ def paste(event):
 
 app = Application(key_bindings=kb, layout=layout, full_screen=True)
 app.run()
+

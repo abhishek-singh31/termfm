@@ -12,6 +12,11 @@ def print_file(file_name):
 def get_folder_from_path(src):
     return src.split("/")[-1]
 
+def get_dirpath_from_filepath(filepath):
+    dirpath = filepath.split("/")
+    dirpath.pop(-1)
+    return "/".join(dirpath)
+
 
 def get_menu_selection(data, selection):
     folder_index = 0  # which tuple we are currently at
